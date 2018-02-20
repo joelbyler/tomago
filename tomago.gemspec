@@ -6,10 +6,10 @@ require "tomago/version"
 Gem::Specification.new do |spec|
   spec.name          = "tomago"
   spec.version       = Tomago::VERSION
-  spec.authors       = ["Tung Nguyen"]
-  spec.email         = ["tongueroo@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.authors       = ["Joel Byler"]
+  spec.email         = ["joelbylertongueroo@gmail.com"]
+  spec.description   = "Workspace initialization for tmate"
+  spec.summary       = "Workspace initialization for tmate"
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -19,8 +19,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "thor"
-  spec.add_dependency "colorize"
+  spec.add_dependency "thor", "~> 0.20.0"
+  spec.add_dependency "colorize", "~> 0.8.1"
+  spec.add_dependency "erubis", "~> 2.7"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "byebug"

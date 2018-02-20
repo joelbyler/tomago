@@ -15,5 +15,15 @@ module Tomago
     def version
       puts Tomago::VERSION
     end
+
+    desc "new NAME", "generate a new project workspace configuration file"
+    def new(name)
+      ProjectGenerator.new(name)
+    end
+
+    desc "[launch] NAME", "launch tmate with specific project configuration"
+    def launch(name)
+      ProjectLauncher.new(name)
+    end
   end
 end

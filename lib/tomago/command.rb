@@ -36,8 +36,13 @@ module Tomago
         #   tomago --version
         #   tomago -v
         version_flags = ["--version", "-v"]
-        if args.length == 1 && !(args & version_flags).empty?
-          args = ["version"]
+        if args.length == 1 
+          
+          if !(args & version_flags).empty?
+            args = ["version"]
+          else
+            args.unshift("launch")
+          end
         end
 
         super

@@ -1,0 +1,37 @@
+#!<%= ENV["SHELL"] || "/bin/bash" %>
+
+# Clear rbenv variables before starting tmux
+unset RBENV_VERSION
+unset RBENV_DIR
+
+cd <%= project_config["root"] %>
+
+<% remaining_window_names = window_names %>
+
+tmate -S <%= socket %> new-session -d -n '<%= remaining_window_names.shift %>'
+# tmate -S <%= socket %> new-window -n 'Logs' -d
+# tmate -S <%= socket %> split-window -h -d
+# tmate -S <%= socket %> split-window -v -d
+# tmate -S <%= socket %> resize-pane -D 5
+# tmate -S <%= socket %> send-keys -t 1 "ls" Enter
+# tmate -S <%= socket %> send-keys -t 2 "git status" Enter
+<% remaining_window_names.each do |name| %>
+  tmate -S <%= socket %> new-window -n '<%= name %>' -d
+<% end %>
+
+<% windows.each_with_index do |val, index| %>
+  <% if val.values[0].is_a? String %>
+    tmate -S <%= socket %> send-keys -t <%= index + 1 %> "<%= val.values[0] %>" Enter
+  <% else %>
+    <% remaining_panes = val.values[0]["panes"] %>
+    tmate -S <%= socket %> send-keys -t <%= index + 1 %> "<%= remaining_panes.shift %>" Enter
+    <% remaining_panes.each do | command | %>
+      tmate -S <%= socket %> split-window -t <%= index + 1 %> -v -d
+      # -h for horizontal (depends on layout?)
+      # tmate -S <%= socket %> split-window -t <%= index + 1 %> -h -d
+      tmate -S <%= socket %> send-keys -t <%= index + 1 %> "<%= command %>" Enter    
+    <% end %>
+  <% end %>
+<% end %>
+
+tmate -S <%= socket %> attach
