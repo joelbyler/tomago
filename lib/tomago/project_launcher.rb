@@ -1,10 +1,14 @@
 require "YAML"
+require 'tomago/models/window'
 module Tomago
   class ProjectLauncher
     include Tomago::ProjectHelpers
 
+    attr_reader :windows, :primary_window, :secondary_windows
+
     def initialize(name, debug: false)
       @project_name = name
+      load_windows
 
       content = File.read('lib/tomago/templates/launch.ssh.erb')
       if debug
@@ -20,16 +24,27 @@ module Tomago
       @project_config ||= YAML.load(File.read(project_file))
     end
 
+    def root_directory
+      project_config["root"]
+    end
+
     def socket
       project_config["name"]
     end
 
     def window_names
-      windows.map{|w|w.keys[0]}
+      @windows.map{|w|w.name}
     end
 
-    def windows
-      project_config["windows"]
+    private
+
+    def load_windows
+      windows = project_config["windows"].clone
+      @primary_window = Tomago::Models::Window.new(1, windows.shift)
+      @secondary_windows = windows.each_with_index.map do |w, i|
+        Tomago::Models::Window.new(i + 2, w)
+      end
+      @windows = [@primary_window] + @secondary_windows
     end
   end
 end

@@ -7,9 +7,9 @@ Gem::Specification.new do |spec|
   spec.name          = "tomago"
   spec.version       = Tomago::VERSION
   spec.authors       = ["Joel Byler"]
-  spec.email         = ["joelbylertongueroo@gmail.com"]
+  spec.email         = ["joelbyler@gmail.com"]
   spec.description   = "Workspace initialization for tmate"
-  spec.summary       = "Workspace initialization for tmate"
+  spec.summary       = "Workspace initialization for tmate."
   spec.homepage      = ""
   spec.license       = "MIT"
 
