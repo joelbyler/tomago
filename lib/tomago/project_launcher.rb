@@ -7,7 +7,7 @@ module Tomago
       @project_name = name
       puts project_config
 
-      content = File.read('lib/tomago/launch.ssh.erb')
+      content = File.read('lib/tomago/templates/launch.ssh.erb')
       Kernel.exec(::Erubis::Eruby.new(content).result(binding))
       puts(::Erubis::Eruby.new(content).result(binding))
     end

@@ -19,7 +19,7 @@ module Tomago
 
     def generate_project_configuration
       require 'erubis'
-      input = File.read('lib/tomago/project.yml.erb')
+      input = File.read('lib/tomago/templates/project.yml.erb')
       eruby = Erubis::Eruby.new(input)
       eruby.result(binding())
     end
