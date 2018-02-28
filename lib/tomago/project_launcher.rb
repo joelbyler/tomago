@@ -10,7 +10,7 @@ module Tomago
       @project_name = name
       load_windows
 
-      content = File.read('lib/tomago/templates/launch.ssh.erb')
+      content = File.read("#{File.dirname(__FILE__)}/templates/launch.ssh.erb")
       if debug
         puts(::Erubis::Eruby.new(content).result(binding))
       else
