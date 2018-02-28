@@ -3,13 +3,15 @@ module Tomago
   class ProjectLauncher
     include Tomago::ProjectHelpers
 
-    def initialize(name)
+    def initialize(name, debug: false)
       @project_name = name
-      puts project_config
 
       content = File.read('lib/tomago/templates/launch.ssh.erb')
-      Kernel.exec(::Erubis::Eruby.new(content).result(binding))
-      puts(::Erubis::Eruby.new(content).result(binding))
+      if debug
+        puts(::Erubis::Eruby.new(content).result(binding))
+      else
+        Kernel.exec(::Erubis::Eruby.new(content).result(binding))
+      end
     end
 
     private

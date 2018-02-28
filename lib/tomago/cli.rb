@@ -25,5 +25,10 @@ module Tomago
     def launch(name)
       ProjectLauncher.new(name)
     end
+
+    desc "[debug] NAME", "debug script to start tmate with specific project configuration"
+    def debug(name)
+      ProjectLauncher.new(name, debug: true)
+    end
   end
 end
