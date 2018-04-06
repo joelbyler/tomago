@@ -18,6 +18,14 @@ module Tomago
       end
     end
 
+    def has_on_project_start?
+      !on_project_start.nil?
+    end
+
+    def on_project_start
+      project_config["on_project_start"]
+    end
+
     private
 
     def project_config

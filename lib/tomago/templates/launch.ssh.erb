@@ -6,7 +6,13 @@ unset RBENV_DIR
 
 cd <%= project_config["root"] %>
 
+<% if has_on_project_start? %>
+  <%= on_project_start %>
+<% end %>
+
 tmate -S <%= socket %> new-session -d -n '<%= primary_window.name %>'
+tmate -S <%= socket %> set-window-option -g base-index 1
+tmate -S <%= socket %> set-window-option -g pane-base-index 1
 
 <% secondary_windows.each do |window| %>
   tmate -S <%= socket %> new-window -n '<%= window.name %>' -d
